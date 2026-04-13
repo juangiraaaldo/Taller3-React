@@ -7,18 +7,24 @@ import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
-import Avatar from '@mui/material/Avatar';
+import Badge from '@mui/material/Badge';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import Button from '@mui/material/Button';
-import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import { styled, alpha } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
+import { NavLink } from 'react-router-dom';
 
-
-const pages = ['Products', 'Pricing', 'Blog'];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+const pages = [
+    { label: 'INICIO', path: '/' },
+    { label: 'ARTÍCULOS', path: '/articles' },
+    { label: 'OFERTAS', path: '/ofert' },
+    { label: 'MI CUENTA', path: '/mi-cuenta' },
+    { label: 'MIS FAVORITOS', path: '/favoritos' },
+    { label: 'MIS COMPRAS', path: '/compras' },
+];
 
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
@@ -85,15 +91,15 @@ export const Header = () => {
 
     return (
         <>
-            <AppBar position="static">
+            <AppBar position="static" sx={{ background: '#212121' }}>
                 <Container maxWidth="xl">
                     <Toolbar disableGutters>
-                        <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1}} />
+                        <Box component="img" src='/Taller3React.github.io/imgs/Logo.png' sx={{ display: { xs: 'none', md: 'flex' }, mr: 1, height: 40 }} />
                         <Typography
                             variant="h6"
                             noWrap
-                            component="a"
-                            href="#app-bar-with-responsive-menu"
+                            component={NavLink}
+                            to="/"
                             sx={{
                                 mr: 2,
                                 display: { xs: 'none', md: 'flex' },
@@ -104,7 +110,7 @@ export const Header = () => {
                                 textDecoration: 'none',
                             }}
                         >
-                            LOGO
+                            GamerZone
                         </Typography>
 
                         <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none', } }}>
@@ -135,8 +141,8 @@ export const Header = () => {
                                 sx={{ display: { xs: 'block', md: 'none' } }}
                             >
                                 {pages.map((page) => (
-                                    <MenuItem key={page} onClick={handleCloseNavMenu}>
-                                        <Typography sx={{ textAlign: 'center' }}>{page}</Typography>
+                                    <MenuItem key={page.label} component={NavLink} to={page.path} onClick={handleCloseNavMenu}>
+                                        <Typography sx={{ textAlign: 'center' }}>{page.label}</Typography>
                                     </MenuItem>
                                 ))}
                             </Menu>
@@ -145,8 +151,8 @@ export const Header = () => {
                         <Typography
                             variant="h5"
                             noWrap
-                            component="a"
-                            href="#app-bar-with-responsive-menu"
+                            component={NavLink}
+                            to="#app-bar-with-responsive-menu"
                             sx={{
                                 mr: 2,
                                 display: { xs: 'flex', md: 'none' },
@@ -161,14 +167,31 @@ export const Header = () => {
 
                             LOGO
                         </Typography>
-                        <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+
+                        <Box sx={{ flexGrow: 1 }} />
+
+                        <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
                             {pages.map((page) => (
                                 <Button
-                                    key={page}
+                                    key={page.label}
+                                    component={NavLink}
+                                    to={page.path}
                                     onClick={handleCloseNavMenu}
-                                    sx={{ my: 2, color: 'white', display: 'block' }}
+                                    sx={{
+                                        my: 2,
+                                        color: 'white',
+                                        display: 'block',
+                                        '&:hover': {
+                                            color: 'rgb(226, 43, 165)',
+                                        },
+                                        '&.active': {
+                                            borderBottom: '2px solid rgb(226, 43, 165)',
+                                            color: 'rgb(226, 43, 165)',
+                                            fontWeight: 700,
+                                        }
+                                    }}
                                 >
-                                    {page}
+                                    {page.label}
                                 </Button>
                             ))}
                         </Box>
@@ -183,36 +206,11 @@ export const Header = () => {
                             />
                         </Search>
 
-                        <Box sx={{ flexGrow: 0 }}>
-                            <Tooltip title="Open settings">
-                                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                                    <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-                                </IconButton>
-                            </Tooltip>
-                            <Menu
-                                sx={{ mt: '45px' }}
-                                id="menu-appbar"
-                                anchorEl={anchorElUser}
-                                anchorOrigin={{
-                                    vertical: 'top',
-                                    horizontal: 'right',
-                                }}
-                                keepMounted
-                                transformOrigin={{
-                                    vertical: 'top',
-                                    horizontal: 'right',
-                                }}
-                                open={Boolean(anchorElUser)}
-                                onClose={handleCloseUserMenu}
-                            >
-                                {settings.map((setting) => (
-                                    <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                                        <Typography sx={{ textAlign: 'center' }}>{setting}</Typography>
-                                    </MenuItem>
-                                ))}
-                            </Menu>
-                        </Box>
-                    </Toolbar>
+                        <IconButton color="inherit" aria-label="carrito">
+                            <Badge badgeContent={4} color="error">
+                                <ShoppingCartIcon />
+                            </Badge>
+                        </IconButton>                    </Toolbar>
                 </Container>
             </AppBar>
         </>
