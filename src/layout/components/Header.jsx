@@ -21,9 +21,9 @@ const pages = [
     { label: 'INICIO', path: '/' },
     { label: 'ARTÍCULOS', path: '/articles' },
     { label: 'OFERTAS', path: '/ofert' },
-    { label: 'MI CUENTA', path: '/mi-cuenta' },
-    { label: 'MIS FAVORITOS', path: '/favoritos' },
-    { label: 'MIS COMPRAS', path: '/compras' },
+    { label: 'MI CUENTA', path: '/cuenta' },
+    { label: 'MIS FAVORITOS', path: '/favorites' },
+    { label: 'MIS COMPRAS', path: '/compra' },
 ];
 
 const Search = styled('div')(({ theme }) => ({
@@ -68,7 +68,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 
-export const Header = () => {
+export const Header = ({ favoritos, carrito }) => {
 
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -104,10 +104,16 @@ export const Header = () => {
                                 mr: 2,
                                 display: { xs: 'none', md: 'flex' },
                                 fontFamily: 'monospace',
-                                fontWeight: 700,
+                                fontWeight: 800,
                                 letterSpacing: '.3rem',
                                 color: 'inherit',
                                 textDecoration: 'none',
+                                fontSize: {
+                                    md: '1.5rem',
+                                    lg: '1.8rem',
+                                    xl: '2.2rem'
+                                },
+                                textShadow: '2px 2px 4px rgba(226, 43, 165, 0.3)',
                             }}
                         >
                             GamerZone
@@ -152,20 +158,23 @@ export const Header = () => {
                             variant="h5"
                             noWrap
                             component={NavLink}
-                            to="#app-bar-with-responsive-menu"
+                            to="/"
                             sx={{
                                 mr: 2,
                                 display: { xs: 'flex', md: 'none' },
                                 flexGrow: 1,
                                 fontFamily: 'monospace',
                                 fontWeight: 700,
-                                letterSpacing: '.3rem',
+                                letterSpacing: '.2rem',
                                 color: 'inherit',
                                 textDecoration: 'none',
+                                fontSize: {
+                                    xs: '1.1rem',  // Móviles pequeños (iPhone SE)
+                                    sm: '1.4rem',  // Tablets
+                                }
                             }}
                         >
-
-                            LOGO
+                            GamerZone
                         </Typography>
 
                         <Box sx={{ flexGrow: 1 }} />
@@ -181,6 +190,7 @@ export const Header = () => {
                                         my: 2,
                                         color: 'white',
                                         display: 'block',
+                                        position: 'relative',
                                         '&:hover': {
                                             color: 'rgb(226, 43, 165)',
                                         },
@@ -192,25 +202,49 @@ export const Header = () => {
                                     }}
                                 >
                                     {page.label}
+
+                                    {/* Badge SOLO en MIS FAVORITOS */}
+                                    {page.label === 'MIS FAVORITOS' && favoritos > 0 && (
+                                        <Badge
+                                            badgeContent={favoritos}
+                                            color="error"
+                                            sx={{
+                                                position: 'absolute',
+                                                top: 5,
+                                                right: 15,
+                                                '& .MuiBadge-badge': {
+                                                    fontSize: '0.80rem',
+                                                    height: 20,
+                                                    minWidth: 20,
+                                                }
+                                            }}
+                                        />
+                                    )}
                                 </Button>
                             ))}
                         </Box>
 
-                        <Search>
-                            <SearchIconWrapper>
-                                <SearchIcon />
-                            </SearchIconWrapper>
-                            <StyledInputBase
-                                placeholder="Search…"
-                                inputProps={{ 'aria-label': 'search' }}
-                            />
-                        </Search>
+                        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
 
-                        <IconButton color="inherit" aria-label="carrito">
-                            <Badge badgeContent={4} color="error">
-                                <ShoppingCartIcon />
-                            </Badge>
-                        </IconButton>                    </Toolbar>
+                            <Search>
+                                <SearchIconWrapper>
+                                    <SearchIcon />
+                                </SearchIconWrapper>
+                                <StyledInputBase
+                                    placeholder="Search…"
+                                    inputProps={{ 'aria-label': 'search' }}
+                                />
+                            </Search>
+
+                            {/* Carrito */}
+                            <IconButton color="inherit" aria-label="carrito">
+                                <Badge badgeContent={carrito} color="error">
+                                    <ShoppingCartIcon />
+                                </Badge>
+                            </IconButton>
+
+                        </Box>
+                    </Toolbar>
                 </Container>
             </AppBar>
         </>

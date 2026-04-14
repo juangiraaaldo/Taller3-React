@@ -2,21 +2,18 @@ import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
+import Grid from '@mui/material/Grid'; 
 import { Link as RouterLink } from 'react-router-dom';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
 export const Footer = () => {
     return (
-        <>
         <Box component="footer" sx={{ backgroundColor: '#212121', color: 'white', pt: 6, pb: 3, mt: 'auto' }}>
             <Container maxWidth="xl">
-
-                {/* Columnas */}
                 <Grid container spacing={4} sx={{ mb: 4 }}>
 
-                    {/* Logo */}
-                    <Grid item xs={12} md={3}>
+                    <Grid size={{ xs: 12, md: 3 }}>
+
                         <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 2 }}>
                             <ShoppingCartIcon />
                             <Typography variant="h6" fontWeight={700} fontFamily="monospace">
@@ -28,36 +25,36 @@ export const Footer = () => {
                         </Typography>
                     </Grid>
 
-                    {/* Navegación */}
-                    <Grid item xs={12} md={3}>
+                    <Grid size={{ xs: 12, md: 3 }}>
+
                         <Typography variant="subtitle1" fontWeight={700} sx={{ mb: 2 }}>
                             Navegación
                         </Typography>
                         {['Inicio', 'Artículos', 'Ofertas'].map((item) => (
                             <Box key={item} sx={{ mb: 1 }}>
-                                <Link component={RouterLink} to="/" color="grey.500" underline="hover" sx={{'&:hover': {color: 'rgb(226, 43, 165)',}}}>
+                                <Link component={RouterLink} to="/" color="grey.500" underline="hover" sx={{'&:hover': {color: 'rgb(226, 43, 165)'}}}>
                                     {item}
                                 </Link>
                             </Box>
                         ))}
                     </Grid>
 
-                    {/* Soporte */}
-                    <Grid item xs={12} md={3}>
+                    <Grid size={{ xs: 12, md: 3 }}>
+
                         <Typography variant="subtitle1" fontWeight={700} sx={{ mb: 2 }}>
                             Soporte
                         </Typography>
                         {['FAQ', 'Contacto', 'Devoluciones'].map((item) => (
                             <Box key={item} sx={{ mb: 1 }}>
-                                <Link component={RouterLink} to="/" color="grey.500" underline="hover" sx={{'&:hover': {color: 'rgb(226, 43, 165)',}}}>
+                                <Link component={RouterLink} to="/" color="grey.500" underline="hover" sx={{'&:hover': {color: 'rgb(226, 43, 165)'}}}>
                                     {item}
                                 </Link>
                             </Box>
                         ))}
                     </Grid>
 
-                    {/* Recibe ofertas */}
-                    <Grid item xs={12} md={3}>
+                    <Grid size={{ xs: 12, md: 3 }}>
+
                         <Typography variant="subtitle1" fontWeight={700} sx={{ mb: 2 }}>
                             Recibe ofertas
                         </Typography>
@@ -68,15 +65,12 @@ export const Footer = () => {
 
                 </Grid>
 
-                {/* Divider + copyright */}
                 <Box sx={{ borderTop: '1px solid rgba(255,255,255,0.15)', pt: 3 }}>
                     <Typography variant="body2" color="grey.500" align="center">
                         © 2026 Juan José Giraldo All Right Reserved :|
                     </Typography>
                 </Box>
-
             </Container>
         </Box>
-        </>
     );
 };

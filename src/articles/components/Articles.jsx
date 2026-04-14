@@ -33,12 +33,12 @@ const juegos = [
     { id: 20, titulo: 'Death Stranding', precio: 29.99, descuento: 40, categoria: 'Aventura', img: "/Taller3React.github.io/imgs/DeathStranding.png" }
 ];
 
-export const Articles = () => {
+export const Articles = ({ setFavoritos, setCarrito }) => {
     return (
         <>
             <Box sx={{ px: 4, py: 6, backgroundColor: '#d8d8d8' }}>
 
-                <Typography variant="h4" fontWeight={700} sx={{ mb: 1 }}>
+                <Typography variant="h4" fontWeight={700} sx={{ mb: 1 }} >
                     Artículos
                 </Typography>
                 <Typography variant="body1" color="text.secondary" sx={{ mb: 4 }}>
@@ -49,79 +49,81 @@ export const Articles = () => {
                     {juegos.map((juego) => (
                         <Grid size={{ xs: 12, sm: 6, md: 3 }} key={juego.id}>
                             <Card sx={{
-                                height: '100%',
-                                boxShadow: '0px 4px 10px rgba(0,0,0,0.15)',
-                                borderRadius: '10px',
-                                transition: 'transform 0.2s',
-                                '&:hover': { transform: 'scale(1.03)' }
-                            }}>
-                                <CardMedia
-                                    component="img"
-                                    height="160"
-                                    image={juego.img}
-                                    alt={juego.titulo}
-                                    sx={{ objectFit: 'cover' }}
+                            height: '100%',
+                            boxShadow: '0px 4px 10px rgba(0,0,0,0.15)',
+                            borderRadius: '10px',
+                            transition: 'transform 0.2s',
+                            '&:hover': { transform: 'scale(1.03)' }
+                        }}>
+                            <CardMedia
+                                component="img"
+                                height="160"
+                                image={juego.img}
+                                alt={juego.titulo}
+                                sx={{ objectFit: 'cover' }}
+                            />
+                            <CardContent>
+                                <Chip
+                                    label={juego.categoria}
+                                    size="small"
+                                    sx={{ mb: 1, backgroundColor: '#212121', color: 'white' }}
                                 />
-                                <CardContent>
-                                    <Chip
-                                        label={juego.categoria}
-                                        size="small"
-                                        sx={{ mb: 1, backgroundColor: '#212121', color: 'white' }}
-                                    />
-                                    <Typography variant="h6" fontWeight={700} sx={{ mb: 1, fontSize: '0.95rem' }}>
-                                        {juego.titulo}
+                                <Typography variant="h6" fontWeight={700} sx={{ mb: 1, fontSize: '0.95rem' }}>
+                                    {juego.titulo}
+                                </Typography>
+                                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                                    {juego.descuento > 0 && (
+                                        <Chip label={`-${juego.descuento}%`} size="small" color="error" />
+                                    )}
+                                    <Typography variant="h6" color="primary" fontWeight={700}>
+                                        {juego.precio === 0 ? 'Gratis' : `$${(juego.precio * (1 - juego.descuento / 100)).toFixed(2)}`}
                                     </Typography>
-                                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                                        {juego.descuento > 0 && (
-                                            <Chip label={`-${juego.descuento}%`} size="small" color="error" />
-                                        )}
-                                        <Typography variant="h6" color="primary" fontWeight={700}>
-                                            {juego.precio === 0 ? 'Gratis' : `$${(juego.precio * (1 - juego.descuento / 100)).toFixed(2)}`}
+                                    {juego.descuento > 0 && (
+                                        <Typography variant="body2" color="text.secondary" sx={{ textDecoration: 'line-through' }}>
+                                            ${juego.precio}
                                         </Typography>
-                                        {juego.descuento > 0 && (
-                                            <Typography variant="body2" color="text.secondary" sx={{ textDecoration: 'line-through' }}>
-                                                ${juego.precio}
-                                            </Typography>
-                                        )}
-                                    </Box>
-                                </CardContent>
-                                <CardActions sx={{ display: 'flex', gap: 1, px: 2, pb: 2 }}>
+                                    )}
+                                </Box>
+                            </CardContent>
+                            <CardActions sx={{ display: 'flex', gap: 1, px: 2, pb: 2 }}>
 
-                                    {/* Favoritos */}
-                                    <Button
-                                        size="small"
-                                        variant="outlined"
-                                        sx={{
-                                            borderColor: '#212121',
-                                            color: '#212121',
-                                            '&:hover': {
-                                                backgroundColor: 'rgba(226, 43, 165, 0.1)',
-                                                borderColor: 'rgb(226, 43, 165)',
-                                                color: 'rgb(226, 43, 165)',
-                                            }
-                                        }}
-                                    >
-                                        <FavoriteIcon fontSize="small" />
-                                    </Button>
+                                {/* Favoritos */}
+                                <Button
+                                    size="small"
+                                    variant="outlined"
+                                    onClick={() => setFavoritos(prev => prev + 1)}
+                                    sx={{
+                                        borderColor: '#212121',
+                                        color: '#212121',
+                                        '&:hover': {
+                                            backgroundColor: 'rgba(226, 43, 165, 0.1)',
+                                            borderColor: 'rgb(226, 43, 165)',
+                                            color: 'rgb(226, 43, 165)',
+                                        }
+                                    }}
+                                >
+                                    <FavoriteIcon fontSize="small" />
+                                </Button>
 
-                                    {/* Agregar al carrito */}
-                                    <Button
-                                        size="small"
-                                        variant="contained"
-                                        fullWidth
-                                        sx={{
-                                            backgroundColor: '#212121',
-                                            '&:hover': {
-                                                backgroundColor: 'rgb(180, 30, 130)',
-                                            }
-                                        }}
-                                        startIcon={<AddShoppingCartIcon />}
-                                    >
-                                        Agregar
-                                    </Button>
+                                {/* Agregar al carrito */}
+                                <Button
+                                    size="small"
+                                    variant="contained"
+                                    onClick={() => setCarrito(prev => prev + 1)}
+                                    fullWidth
+                                    sx={{
+                                        backgroundColor: '#212121',
+                                        '&:hover': {
+                                            backgroundColor: 'rgb(180, 30, 130)',
+                                        }
+                                    }}
+                                    startIcon={<AddShoppingCartIcon />}
+                                >
+                                    Agregar
+                                </Button>
 
-                                </CardActions>
-                            </Card>
+                            </CardActions>
+                        </Card>
                         </Grid>
                     ))}
                 </Grid>
