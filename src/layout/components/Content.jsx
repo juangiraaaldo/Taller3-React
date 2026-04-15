@@ -4,6 +4,7 @@ import Grid from '@mui/material/Grid';
 import Card from '@mui/material/Card';
 import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
+import Button from '@mui/material/Button';
 
 const caracteristicas = [
   {
@@ -109,6 +110,66 @@ export const Content = () => {
           ))}
         </Grid>
       </Box>
+
+              {/* Repositorio */}
+        <Box sx={{ px: { xs: 2, md: 4 }, pb: 8, display: 'flex', justifyContent: 'center' }}>
+          <Box
+            sx={{
+              width: '100%',
+              maxWidth: '900px',
+              backgroundColor: 'rgba(255, 255, 255, 0.4)',
+              backdropFilter: 'blur(10px)',
+              borderRadius: '24px',
+              p: { xs: 4, md: 6 },
+              textAlign: 'center',
+              boxShadow: '0px 10px 30px rgba(0,0,0,0.05)',
+              border: '1px solid rgba(255, 255, 255, 0.3)'
+            }}
+          >
+            <Typography variant="h4" fontWeight={800} sx={{ mb: 2, color: '#212121' }}>
+              Explora el código del proyecto
+            </Typography>
+            
+            <Typography 
+              variant="body1" 
+              sx={{ 
+                mb: 4, 
+                color: 'text.secondary', 
+                maxWidth: '600px', 
+                mx: 'auto',
+                lineHeight: 1.6 
+              }}
+            >
+              Este proyecto fue desarrollado con <strong>React</strong> y <strong>Material UI</strong> como una landing page moderna para administración de productos. Puedes revisar el código completo, aprender de su estructura o usarlo como base para tus propios proyectos.
+            </Typography>
+
+            <Button
+              variant="contained"
+              component="a"
+              href="https://github.com/juangiraaaldo/Taller3-React.github.io"
+              target="_blank"
+              sx={{
+                backgroundColor: '#f5f5f5',
+                color: '#212121',
+                fontWeight: 700,
+                px: 4,
+                py: 1.5,
+                borderRadius: '12px',
+                textTransform: 'none',
+                fontSize: '1rem',
+                boxShadow: '0px 4px 12px rgba(0,0,0,0.1)',
+                '&:hover': {
+                  backgroundColor: '#ffffff',
+                  transform: 'scale(1.02)',
+                  boxShadow: '0px 6px 15px rgba(0,0,0,0.15)',
+                },
+                transition: 'all 0.2s ease'
+              }}
+            >
+              Ver repositorio en GitHub
+            </Button>
+          </Box>
+        </Box>
     </Box>
   );
 };
