@@ -30,7 +30,7 @@ export const Footer = () => {
                         <Typography variant="subtitle1" fontWeight={700} sx={{ mb: 2 }}>
                             Navegación
                         </Typography>
-                        {['Inicio', 'Artículos', 'Ofertas'].map((item) => (
+                        {['Inicio', 'Artículos', 'Ofertas', 'Mi Cuenta', 'Mis Favoritos', 'Mis Compras'].map((item) => (
                             <Box key={item} sx={{ mb: 1 }}>
                                 <Link component={RouterLink} to="/" color="grey.500" underline="hover" sx={{'&:hover': {color: 'rgb(226, 43, 165)'}}}>
                                     {item}
